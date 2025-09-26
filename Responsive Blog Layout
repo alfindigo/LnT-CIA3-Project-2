@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Responsive Blog Layout</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <div class="container my-5">
+    <h1 class="mb-4">My Blog</h1>
+
+    <!-- Search and Category Filters -->
+    <div class="row mb-4">
+      <div class="col-md-6 mb-2">
+        <input
+          type="text"
+          id="searchInput"
+          class="form-control"
+          placeholder="Search blog posts..."
+          onkeyup="filterPosts()"
+        />
+      </div>
+      <div class="col-md-6">
+        <select class="form-select" id="categorySelect" onchange="filterPosts()">
+          <option value="">All Categories</option>
+          <option value="Web Design">Web Design</option>
+          <option value="JavaScript">JavaScript</option>
+          <option value="CSS">CSS</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Blog Posts Grid -->
+    <div class="row" id="postsContainer">
+      <!-- Example Blog Post -->
+      <div class="col-md-4 mb-4 blog-post" data-category="Web Design">
+        <div class="card h-100">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Responsive Web Design Tips</h5>
+            <p class="card-text flex-grow-1">
+              Learn how to build responsive websites that look great on all devices.
+            </p>
+            <a href="#" class="btn btn-primary mt-auto">Read More</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4 blog-post" data-category="JavaScript">
+        <div class="card h-100">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Understanding ES6 Features</h5>
+            <p class="card-text flex-grow-1">
+              Explore new JavaScript features introduced in ES6 and how to use them.
+            </p>
+            <a href="#" class="btn btn-primary mt-auto">Read More</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4 blog-post" data-category="CSS">
+        <div class="card h-100">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Advanced CSS Grid Techniques</h5>
+            <p class="card-text flex-grow-1">
+              Dive into CSS Grid layout and create complex, responsive designs easily.
+            </p>
+            <a href="#" class="btn btn-primary mt-auto">Read More</a>
+          </div>
+        </div>
+      </div>
+
+       <div class="col-md-4 mb-4 blog-post" data-category="CSS">
+        <div class="card h-100">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">UI/UX Development Tips</h5>
+            <p class="card-text flex-grow-1">
+              Tips and tricks for developing fantastic UIs
+            </p>
+            <a href="#" class="btn btn-primary mt-auto">Read More</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add more blog posts as necessary -->
+    </div>
+  </div>
+
+  <script>
+    function filterPosts() {
+      const searchInput = document.getElementById('searchInput').value.toLowerCase();
+      const categorySelect = document.getElementById('categorySelect').value;
+      const posts = document.querySelectorAll('.blog-post');
+
+      posts.forEach(post => {
+        const title = post.querySelector('.card-title').textContent.toLowerCase();
+        const description = post.querySelector('.card-text').textContent.toLowerCase();
+        const category = post.getAttribute('data-category');
+
+        const matchesSearch =
+          title.includes(searchInput) || description.includes(searchInput);
+        const matchesCategory = categorySelect === '' || category === categorySelect;
+
+        if (matchesSearch && matchesCategory) {
+          post.style.display = '';
+        } else {
+          post.style.display = 'none';
+        }
+      });
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
